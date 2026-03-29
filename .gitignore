@@ -1,0 +1,40 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependency directories (not used, but safe to ignore)
+node_modules/
+
+# Build outputs (not applicable for pure static site)
+dist/
+build/
+*.min.js
+
+# Environment / secrets (none, but keep)
+.env
+.env.local
+
+# Temporary cache files (if any)
+.cache/
+*.tmp
+
+# Backup files
+*.bak
+*.old
+
+# Mac resource forks
+._*
+
+# Windows image cache
+ehthumbs.db

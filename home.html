@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Animetrix | Real Anime Data</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="cursor-glow"></div>
+  <nav class="navbar glass">
+    <div class="logo"><i class="fas fa-dragon"></i> ANIMETRIX</div>
+    <div class="nav-links">
+      <button class="nav-btn" data-page="home"><i class="fas fa-home"></i> Home</button>
+      <button class="nav-btn" data-page="trending"><i class="fas fa-fire"></i> Trending</button>
+      <button class="nav-btn" data-page="upcoming"><i class="fas fa-calendar-alt"></i> Upcoming</button>
+      <button class="nav-btn" data-page="library"><i class="fas fa-book-open"></i> Library</button>
+      <button class="nav-btn" data-page="about"><i class="fas fa-info-circle"></i> About</button>
+    </div>
+    <div class="search-dark">
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="globalSearch" placeholder="Search anime..." autocomplete="off">
+        <button id="searchResetBtn" class="search-reset" style="display: none;"><i class="fas fa-times-circle"></i></button>
+      </div>
+      <button id="themeToggle" aria-label="Light/Dark mode"><i class="fas fa-moon"></i></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active-page">
+      <div class="hero-section">
+        <h1 class="glitch-text">Discover Your Next Obsession</h1>
+        <p>Live data from MyAnimeList • 25,000+ titles</p>
+      </div>
+      <section>
+        <h2><i class="fas fa-crown"></i> Featured Anime</h2>
+        <div id="featuredGrid" class="cards-grid"></div>
+      </section>
+      <section>
+        <h2><i class="fas fa-sparkles"></i> Newest Releases</h2>
+        <div id="newestGrid" class="cards-grid"></div>
+      </section>
+      <section>
+        <h2><i class="fas fa-thumbs-up"></i> Recommended</h2>
+        <div id="recommendedGrid" class="cards-grid"></div>
+      </section>
+    </div>
+
+    <!-- TRENDING PAGE -->
+    <div id="trendingPage" class="page">
+      <div class="page-header">
+        <h1><i class="fas fa-chart-line"></i> Trending Now</h1>
+        <p>Most popular currently airing series</p>
+      </div>
+      <div id="trendingGrid" class="cards-grid"></div>
+    </div>
+
+    <!-- UPCOMING PAGE -->
+    <div id="upcomingPage" class="page">
+      <div class="page-header">
+        <h1><i class="fas fa-hourglass-half"></i> Upcoming Anime</h1>
+        <p>Future releases – don't miss out</p>
+      </div>
+      <div id="upcomingGrid" class="cards-grid"></div>
+    </div>
+
+    <!-- LIBRARY PAGE -->
+    <div id="libraryPage" class="page">
+      <div class="page-header">
+        <h1><i class="fas fa-database"></i> Complete Anime Library</h1>
+        <p>Filter, sort, and explore thousands of titles</p>
+      </div>
+      <div class="filter-sort-bar glass">
+        <div class="filter-group"><label><i class="fas fa-tags"></i> Genre</label><select id="genreFilter" title="Filter anime by genre"><option value="all">All Genres</option></select></div>
+        <div class="filter-group"><label><i class="fas fa-play-circle"></i> Status</label><select id="statusFilter" title="Filter anime by status"><option value="all">All</option><option value="airing">Airing</option><option value="completed">Completed</option><option value="upcoming">Upcoming</option></select></div>
+        <div class="filter-group"><label><i class="fas fa-star"></i> Min Rating</label><select id="ratingFilter" title="Filter anime by minimum rating"><option value="0">All</option><option value="7">7+</option><option value="8">8+</option><option value="9">9+</option></select></div>
+        <div class="filter-group"><label><i class="fas fa-calendar"></i> Year</label><select id="yearFilter" title="Filter anime by year"><option value="all">All Years</option></select></div>
+        <div class="filter-group"><label><i class="fas fa-sort-amount-down"></i> Sort by</label><select id="sortBy" title="Sort anime by selected criteria">
+          <option value="rating">Highest Rated</option>
+          <option value="yearDesc">Newest First</option>
+          <option value="yearAsc">Oldest First</option>
+          <option value="popularity">Most Popular</option>
+          <option value="episodes">Most Episodes</option>
+        </select></div>
+        <button class="reset-filters" id="resetFiltersBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+      </div>
+      <div id="libraryGrid" class="cards-grid"></div>
+      <button id="loadMoreBtn" class="load-more-btn"><i class="fas fa-chevron-down"></i> Load More</button>
+    </div>
+
+    <!-- SEARCH RESULTS PAGE (dedicated) -->
+    <div id="searchPage" class="page">
+      <div class="page-header">
+        <h1><i class="fas fa-search"></i> Search Results</h1>
+        <p id="searchQueryDisplay"></p>
+      </div>
+      <div id="searchGrid" class="cards-grid"></div>
+      <button id="searchLoadMoreBtn" class="load-more-btn" style="display: none;"><i class="fas fa-chevron-down"></i> Load More</button>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="aboutPage" class="page">
+      <div class="about-container glass">
+        <h1><i class="fas fa-info-circle"></i> About Animetrix</h1>
+        <div class="about-grid">
+          <div>
+            <p>Animetrix is a <strong>modern anime discovery platform</strong> that pulls <strong>real, live data</strong> directly from <strong>MyAnimeList</strong> via the official <strong>Jikan API</strong> (v4).</p>
+            <p>Every title, poster, episode count, rating, synopsis, trailer, <strong>type</strong> (TV/Movie/OVA), and <strong>season</strong> is fetched in real time – no fake or incomplete information.</p>
+            <div class="feature-list">
+              <div><i class="fas fa-search"></i> Real‑time search</div>
+              <div><i class="fas fa-chart-line"></i> Live trending & upcoming</div>
+              <div><i class="fas fa-sliders-h"></i> Advanced filters & sorting</div>
+              <div><i class="fas fa-moon"></i> Light/Dark mode</div>
+              <div><i class="fas fa-play-circle"></i> Embedded trailers</div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <h3><i class="fas fa-database"></i> Live Data Source</h3>
+            <p><strong>API:</strong> Jikan v4 (jikan.moe)</p>
+            <p><strong>Anime entries:</strong> 25,000+ (real‑time)</p>
+            <p><strong>Update frequency:</strong> As MyAnimeList updates</p>
+            <p><strong>No hardcoded lists</strong> – everything is dynamic</p>
+            <hr>
+            <p><small>© 2025 Animetrix — All data provided by MyAnimeList & Jikan API.</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button id="backToTop" class="back-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- MODAL -->
+  <div id="animeModal" class="modal">
+    <div class="modal-content glass">
+      <button class="close-modal">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Animetrix — Real anime data from MyAnimeList (Jikan API)</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
