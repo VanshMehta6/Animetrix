@@ -7,7 +7,7 @@
 **Animetrix** is a modern, fully responsive web application that fetches **live anime data** directly from [MyAnimeList](https://myanimelist.net) via the official [Jikan API](https://jikan.moe).  
 No fake or hardcoded information – every title, poster, synopsis, rating, episode count, status, season, and trailer is retrieved in real time.
 
-🔗 **Live Demo:** [animetrix.vercel.app](https://animetrix.vercel.app) *(replace with your own URL after deployment)*
+🔗 **Live Demo:** https://vanshmehta6.github.io/Animetrix/
 
 ---
 
